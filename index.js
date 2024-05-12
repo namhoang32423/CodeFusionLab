@@ -1,27 +1,11 @@
-function Trie() {
-  this.root = {};
+function findMin(nums) {
+  let left = 0;
+  let right = nums.length - 1;
+  while (left < right) {
+    const mid = Math.floor((left + right) / 2);
+    if (nums[mid] > nums[right]) left = mid + 1;
+    else if (nums[mid] < nums[right]) right = mid;
+    else right--;
+  }
+  return nums[left];
 }
-Trie.prototype.insert = function (word) {
-  let node = this.root;
-  for (const char of word) {
-    if (!node[char]) node[char] = {};
-    node = node[char];
-  }
-  node.isEnd = true;
-};
-Trie.prototype.search = function (word) {
-  let node = this.root;
-  for (const char of word) {
-    if (!node[char]) return false;
-    node = node[char];
-  }
-  return node.isEnd === true;
-};
-Trie.prototype.startsWith = function (prefix) {
-  let node = this.root;
-  for (const char of prefix) {
-    if (!node[char]) return false;
-    node = node[char];
-  }
-  return true;
-};
